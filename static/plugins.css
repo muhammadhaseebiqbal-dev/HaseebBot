@@ -1,0 +1,37 @@
+@import url(./fonts.css);
+.weather_plugin{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: 90%;
+    height: 20%;
+    background: rgb(255, 255, 255);
+    gap: 4px;
+    font-family: "Poppins";
+    font-size: .76rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin: 10px auto;
+    border-radius: 10px;
+    justify-content: space-between;
+
+    .weathertogglers{
+        background-color: var(--_drawer_bg);
+        width: 30px;
+        height: 17px;
+        display: flex;
+        align-items: center;
+        border-radius: 15px;
+        cursor: pointer;
+        .w-togglerball{
+            margin-left: 1px;
+            border-radius: 15px;
+            width: 15px;
+            height: 15px;
+            transition: .4s;
+            background-color: white;
+        }
+        
+    }
+}

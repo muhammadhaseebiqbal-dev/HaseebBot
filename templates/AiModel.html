@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff0000">
+    <title>HaseebBot | AGi</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/plugins.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/materia.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Drawer container :: parent -->
+    <div class="container">
+        <!-- Drawer container :: subparent -->
+        <div class="drawer" id="DRAWER">
+            <div class="close" id="CLOSE">
+                <i class="fa-regular fa-circle-xmark fa-2xl" style="color: #ffffff; "></i>
+            </div>
+            <div class="reloadchats" id="RELOADCHATS">
+                <h3>New Chat</h3>
+            </div>
+            <div class="plugins" id="plugins">
+                <div class="plugintoggle">
+                    <h2>Plugins</h2>
+                    <div class="plugintogglers">
+                        <div class="togglercover">
+                            <div class="togglerball" id="togglerball">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weather_plugin" id="weather_plugin">
+                    <i class="fa-solid fa-cloud fa-2xl" style="color: #7cbbd5;"></i>
+                    <p>Weather Forecast</p>
+                    <div class="weathertogglers" id="weathertogglers">
+                        <div class="w-togglerball" id="w-togglerball"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="llmselector">
+                <div class="llmselectortoggler">
+                    <h2>Models</h2>
+                </div>
+            </div>
+            <div class="profile">
+                <div class="profilecontents">
+                    <div class="profileimage">
+                        <img src="../static/images/default_profile_pic.jpg" alt="" srcset="">
+                    </div>
+                    <div class="profileusername">
+                        <h3 id="User_ip">0.0.0.0</h3>
+                        <span id="session_id">Session : </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Chatarea container -->
+        <div class="chatarea">
+            <!-- Header setup -->
+            <header>
+                <div class="svg_drawer" id="SVG_DRAWER">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3 8C3 7.44772 3.44772 7 4 7H20C20.5523 7 21 7.44772 21 8C21 8.55228 20.5523 9 20 9H4C3.44772 9 3 8.55228 3 8ZM3 16C3 15.4477 3.44772 15 4 15H14C14.5523 15 15 15.4477 15 16C15 16.5523 14.5523 17 14 17H4C3.44772 17 3 16.5523 3 16Z"
+                            fill="#fff"></path>
+                    </svg>
+                </div>
+                <div class="header_name">
+                    <h3><i class="fa-brands fa-think-peaks "></i> Haseeb Bot</h3>
+                </div>
+                <div class="svg_drawer" id="SVG_DRAWER">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3 8C3 7.44772 3.44772 7 4 7H20C20.5523 7 21 7.44772 21 8C21 8.55228 20.5523 9 20 9H4C3.44772 9 3 8.55228 3 8ZM3 16C3 15.4477 3.44772 15 4 15H14C14.5523 15 15 15.4477 15 16C15 16.5523 14.5523 17 14 17H4C3.44772 17 3 16.5523 3 16Z"
+                            fill="#fffffffd0"></path>
+                    </svg>
+                </div>
+            </header>
+            <!-- chats container -->
+            <main class="chats" id="CHATS">
+                <!--new chats goes here  -->
+            </main>
+            <!-- Text area and whole input setup -->
+            <footer>
+                <form method="post" id="dataForm">
+                    <textarea name="tarea" id="dataInput" cols="30" rows="2"></textarea>
+                    <button type="submit" id="submit">
+                        <i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>
+                    </button>
+                </form>
+            </footer>
+            </footer>
+        </div>
+        <!-- Initail homepage  prompts -->
+        <div class="initial_prompt_container">
+            <div class="initialprompt"><i class="fas fa-comment-dots" style="color: #74C0FC;"></i> Creator Info</div>
+            <div class="initialprompt"><i class="fa-solid fa-table" style="color: #aa8eff;"></i>Timetable</div>
+            <div class="initialprompt"><i class="fa-solid fa-brain" style="color: #ffd746;"></i>Summerize Article</div>
+            <div class="initialprompt"><i class="fa-solid fa-masks-theater" style="color: #ff6767;"></i>Fun Talk</div>
+            <div class="initialprompt"><i class="fa-solid fa-person" style="color: #ffb958;"></i>Diet Plan</div>
+            <div class="initialprompt"><i class="fa-solid fa-link" style="color: #c55bff;"></i>Programming</div>
+        </div>
+    </div>
+    <!-- All scripts -->
+    <script src="../static/js/SessionHandler.js"></script>
+    <script src="../static/js/weather.js"></script>
+    <script src="../static/js/copytext.js"></script>
+    <script type="module" src="../static/js/plugins-toggler.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="../static/js/script.js"></script>
+</body>
+
+</html>

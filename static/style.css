@@ -261,6 +261,7 @@ body {
             padding-top: 45px;
             padding-bottom: 200px;
         }
+        
 
         .chats {
             display: flex;
@@ -270,7 +271,18 @@ body {
             padding-left: var(--_msgs_padd_left);
             padding-right: var(--_msgs_padd_right);
             gap: 10px;
-
+            .AiImage{
+                width: 300px;
+                min-height: 300px;
+                background-color: var(--_drawer_bg);
+                border-radius: 12px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
             .msg.sent {
                 border: 2px solid #ffffff88;
                 max-width: 90%;

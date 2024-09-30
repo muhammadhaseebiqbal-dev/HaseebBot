@@ -19,69 +19,100 @@ $(document).ready(function () {
         var prompt_id_js = generateRandomString(5);
         console.log("rand:" + prompt_id_js);
         document.getElementById('session_id').innerHTML = "Session : " + prompt_id_js
-        document.getElementById('submit').innerHTML = `<i class="fa-solid fa-spinner fa-spin-pulse" style="color: #fff;"></i>`
-        var formData = {
-            query: $("#dataInput").val(),
-            SessionId: CurrentSessionId
-        };
-        $.getJSON("https://api.ipify.org?format=json",
-            function (data) {
-                // Displayin IP address on screen
-                $("#User_ip").html(data.ip);
-            })
-        $("#CHATS").append(`
-              <div class="msg sent">${$("#dataInput").val()}</div>
-            `);
-        send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
-        send_msg_effect.play()
-        textarea.style.height = 35 + "px"
-        document.getElementById('dataInput').value = ""
+ if (Boolean((document.getElementById('dataInput').value).match('@')) === false) {
+           document.getElementById('submit').innerHTML = `<i class="fa-solid fa-spinner fa-spin-pulse" style="color: #fff;"></i>`
+           var formData = {
+               query: $("#dataInput").val(),
+               SessionId: CurrentSessionId
+           };
+           $.getJSON("https://api.ipify.org?format=json",
+               function (data) {
+                   // Displayin IP address on screen
+                   $("#User_ip").html(data.ip);
+               })
+           $("#CHATS").append(`
+                 <div class="msg sent">${$("#dataInput").val()}</div>
+               `);
+           send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
+           send_msg_effect.play()
+           textarea.style.height = 35 + "px"
+           document.getElementById('dataInput').value = ""
+           document.getElementsByClassName('initial_prompt_container')[0].style.display = "none"
+           
+           $.ajax({
+               type: "POST",
+               url: "/server", // Change this URL to match your Python server endpoint
+               data: JSON.stringify(formData), // Convert data to JSON string
+               contentType: "application/json",
+               dataType: "json",
+               encode: true,
+           })
+               .done(function (response) {
+                   console.log(response.prompt_id);
+                   document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
+                   if (response.promptid == CurrentSessionId) {
+                       if (response.snippet_Validation == "empty") {
+                           var frmt = response.message
+                           frmt = frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong>$1</strong>\n<br>");
+                           frmt2 = frmt.replace("*", "");
+                           $("#CHATS").append(` <div class="msg rcvd" background="#18222d"><div class="msg_tools"><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><p><code>${frmt2}</code></p></div>`);
+                           send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
+                           send_msg_effect.play()
+                           Copied()
+   
+                       } else {
+                           var frmt = response.message
+                           formating_pase = frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong><h1>$1</h1></strong>\n<br>");
+                           $("#CHATS").append(`
+                                           <div class="msg rcvd"><div class="msg_tools"><span>Output</span><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><pre style="width:100%;overflow-x:auto;box-sizing:border-box;color:magenta;"><code class="language-java " style:"padding:7px;">${formating_pase}</code></pre></div>
+                                   `);
+                           document.getElementById('dataInput').value = ""
+                           send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
+                           send_msg_effect.play()
+                           hljs.highlightAll();
+                           Copied()
+   
+                       }
+                       console.log(response);
+                       // Handle response from server
+   
+                   }
+                   else {
+                       console.log(response.prompt_id);
+                   }
+               })
+               .fail(function (error) {
+                   console.error(error);
+               });
+            } 
+    else {
+     document.getElementById('submit').innerHTML = `<i class="fa-solid fa-spinner fa-spin-pulse" style="color: #fff;"></i>`
+    var formData = {
+        query: $("#dataInput").val(),
+        SessionId: CurrentSessionId
+    };
+    $.ajax({
+        type: "POST",
+        url: "/genimg", // Change this URL to match your Python server endpoint
+        data: JSON.stringify(formData), // Convert data to JSON string
+        contentType: "application/json",
+        dataType: "json",
+        encode: true,
+    })
+    .done(function (response) {
+        console.log(response.ok);
+        var base64Image = response.ok;
         document.getElementsByClassName('initial_prompt_container')[0].style.display = "none"
-        $.ajax({
-            type: "POST",
-            url: "/server", // Change this URL to match your Python server endpoint
-            data: JSON.stringify(formData), // Convert data to JSON string
-            contentType: "application/json",
-            dataType: "json",
-            encode: true,
-        })
-            .done(function (response) {
-                console.log(response.prompt_id);
-                document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
-                if (response.promptid == CurrentSessionId) {
-                    if (response.snippet_Validation == "empty") {
-                        var frmt = response.message
-                        frmt = frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong>$1</strong>\n<br>");
-                        frmt2 = frmt.replace("*", "");
-                        $("#CHATS").append(` <div class="msg rcvd" background="#18222d"><div class="msg_tools"><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><p><code>${frmt2}</code></p></div>`);
-                        send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
-                        send_msg_effect.play()
-                        Copied()
+        $("#CHATS").append(`<div class="AiImage"><img src="data:image/jpeg;base64,${base64Image}"></div>`)
+        // document.getElementById('CHATS') += `<div class="AiImage"><img src="data:image/jpeg;base64,${base64Image}"></div>`
+        document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
+        document.getElementById('dataInput').value = "@ImgAi :"
 
-                    } else {
-                        var frmt = response.message
-                        formating_pase = frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong><h1>$1</h1></strong>\n<br>");
-                        $("#CHATS").append(`
-                                        <div class="msg rcvd"><div class="msg_tools"><span>Output</span><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><pre style="width:100%;overflow-x:auto;box-sizing:border-box;color:magenta;"><code class="language-java " style:"padding:7px;">${formating_pase}</code></pre></div>
-                                `);
-                        document.getElementById('dataInput').value = ""
-                        send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
-                        send_msg_effect.play()
-                        hljs.highlightAll();
-                        Copied()
-
-                    }
-                    console.log(response);
-                    // Handle response from server
-
-                }
-                else {
-                    console.log(response.prompt_id);
-                }
-            })
-            .fail(function (error) {
-                console.error(error);
-            });
+    })
+    .fail(function (error) {
+        
+    })
+ }
     });
 });
 const drawer = document.getElementById("DRAWER");

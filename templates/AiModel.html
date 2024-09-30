@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ff0000">
-    <title>HaseebBot | AGi</title>
+    <title>HaseebBot</title>
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="../static/plugins.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -97,7 +97,7 @@
             <!-- Text area and whole input setup -->
             <footer>
                 <form method="post" id="dataForm">
-                    <textarea name="tarea" id="dataInput" cols="30" rows="2"></textarea>
+                    <textarea name="tarea" id="dataInput" cols="30" rows="2" placeholder="Must type '@ImgAi' to generate images"></textarea>
                     <button type="submit" id="submit">
                         <i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>
                     </button>
@@ -116,6 +116,7 @@
         </div>
     </div>
     <!-- All scripts -->
+    <script src="../static/js/mentioning.js"></script>
     <script src="../static/js/SessionHandler.js"></script>
     <script src="../static/js/weather.js"></script>
     <script src="../static/js/copytext.js"></script>

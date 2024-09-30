@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, render_template, request
 import google.generativeai as genai
 import re
-
+import requests
+from PIL import Image
+from io import BytesIO
+import base64
 app = Flask(__name__)
 
 conversation_histories = {}
@@ -146,5 +149,24 @@ def forgetweatherdata():
     current_conv_hist.append({"role": "model", "parts": ["I understand. I'll follow your insturtions and fullfill my duty."]})
     return "ok"
 
+@app.route('/genimg', methods=['POST'])
+def imggeneration():
+    data = request.json
+    query = data.get('query')
+    print(query)
+    url = f'https://image.pollinations.ai/prompt/{query}'
+    print("Requesting from Server...")
+    resp =  requests.get(url)
+    print("Parsing Bytes...")
+    image = Image.open(BytesIO(resp.content))
+    img_path = 'Received_img.jpg'
+    print("Saving Image...")
+    # image.save(img_path)
+    print("Succesfully Executed!")
+    buffered = BytesIO()
+    image.save(buffered, format="JPEG")
+    img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    print(img_base64)
+    return jsonify({"ok":img_base64})
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9500, debug=True)

@@ -151,7 +151,7 @@ def imggeneration():
     data = request.json
     query = data.get('query')
     print(query)
-    url = f'uu'
+    url = f'https://image.pollinations.ai/prompt/{query}'
     print("Requesting from Server...")
     resp = requests.get(url, proxies={'http': None, 'https': None})
     print("Parsing Bytes...")
@@ -165,6 +165,3 @@ def imggeneration():
     img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
     print(img_base64)
     return jsonify({"ok":img_base64})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9500)

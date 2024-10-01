@@ -109,8 +109,6 @@ def weatherdata():
     request_data = request.json
     weatger_data = request_data.get('response_parsing')
     SessionId = request_data.get('SessionId')
-    file = open("weatherdata","w+")
-    file.write(str(request_data))
     if SessionId not in conversation_histories:
         conversation_histories[SessionId] = [
                 {
@@ -165,3 +163,6 @@ def imggeneration():
     img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
     print(img_base64)
     return jsonify({"ok":img_base64})
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=9500)

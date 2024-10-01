@@ -5,10 +5,8 @@ import requests
 from PIL import Image
 from io import BytesIO
 import base64
-import os
 app = Flask(__name__)
 
-os.mkdir("userdata")
 conversation_histories = {}
 # Chat History Saver
 # conversation_history = [
@@ -88,9 +86,6 @@ def server():
         # Apping Conversation for future use.
         current_conv_hist.append({"role": "user", "parts": [query]})
         current_conv_hist.append({"role": "model", "parts": [model_response]})
-        file = open(f"/userdata/{SessionId}.hdat","w+", encoding="utf-8")
-        file.write(f'"{current_conv_hist}"')
-        file.close()
         # Identifying the Tpe of Response for formating i.e; Code , Paras
         snippet = re.compile(r'(?:```[^\n]*\n[\s\S]*?```)+', re.MULTILINE)
         identifying_snippets = snippet.findall(model_response)
@@ -170,3 +165,6 @@ def imggeneration():
     img_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
     print(img_base64)
     return jsonify({"ok":img_base64})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=9500)

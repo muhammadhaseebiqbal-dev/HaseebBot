@@ -58,18 +58,22 @@ $(document).ready(function () {
                            $("#CHATS").append(` <div class="msg rcvd" background="#18222d"><div class="msg_tools"><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><p><code>${frmt2}</code></p></div>`);
                            send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
                            send_msg_effect.play()
+                           scrollToBottom()
                            Copied()
    
                        } else {
                            var frmt = response.message
-                           formating_pase = frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong><h1>$1</h1></strong>\n<br>");
+                           formating_pase = (frmt.replace(/\*\*(.*?)\*\*/g, "<br><strong><h3>$1</h3></strong>\n<br>")).split("```");
                            $("#CHATS").append(`
-                                           <div class="msg rcvd"><div class="msg_tools"><span>Output</span><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><pre style="width:100%;overflow-x:auto;box-sizing:border-box;color:magenta;"><code class="language-java " style:"padding:7px;">${formating_pase}</code></pre></div>
+                                           <div class="msg rcvd"><div class="msg_tools"><span>Output</span><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><pre style="width:100%;overflow-x:auto;box-sizing:border-box;color:magenta;"><code class="language-java " style:"padding:7px;">${formating_pase[1]}</code></pre></div>
                                    `);
+                           $("#CHATS").append(` <div class="msg rcvd" background="#18222d" style="padiing:13px;"><div class="msg_tools"><div class="copy_text"><i class="fa-solid fa-copy"></i></div></div><p><code>${formating_pase[2]}</code></p></div>`);
+
                            document.getElementById('dataInput').value = ""
                            send_msg_effect.src = '../static/soundeffects/message-sent.mp3'
                            send_msg_effect.play()
                            hljs.highlightAll();
+                           scrollToBottom()
                            Copied()
    
                        }
@@ -93,20 +97,31 @@ $(document).ready(function () {
     };
     $.ajax({
         type: "POST",
-        url: "/genimg", // Change this URL to match your Python server endpoint
-        data: JSON.stringify(formData), // Convert data to JSON string
+        url: "/genimg",
+        data: JSON.stringify(formData),
         contentType: "application/json",
         dataType: "json",
         encode: true,
     })
     .done(function (response) {
-        console.log(response.ok);
-        var base64Image = response.ok;
-        document.getElementsByClassName('initial_prompt_container')[0].style.display = "none"
-        $("#CHATS").append(`<div class="AiImage"><img src="data:image/jpeg;base64,${base64Image}"></div>`)
-        // document.getElementById('CHATS') += `<div class="AiImage"><img src="data:image/jpeg;base64,${base64Image}"></div>`
-        document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
-        document.getElementById('dataInput').value = "@ImgAi :"
+        let warning
+        let base64Image
+        if (response.jpeg) {
+            base64Image = response.jpeg;
+            document.getElementsByClassName('initial_prompt_container')[0].style.display = "none"
+            $("#CHATS").append(`<div class="AiImage"><a href="data:image/jpeg;base64,${base64Image}" download blank><img src="data:image/jpeg;base64,${base64Image}"></a></div>`)
+            // document.getElementById('CHATS') += `<div class="AiImage"><img src="data:image/jpeg;base64,${base64Image}"></div>`
+            document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
+            document.getElementById('dataInput').value = "@ImgAi :"
+            scrollToBottom()
+        } else {
+            const warningBox = document.querySelector('.warning')
+            warning = response.warning
+            warningBox.textContent = warning
+            warningBox.classList.add('warn-anim')
+            document.getElementById('dataInput').value = "@ImgAi "
+
+        }
 
     })
     .fail(function (error) {

@@ -271,6 +271,7 @@ body {
             padding-left: var(--_msgs_padd_left);
             padding-right: var(--_msgs_padd_right);
             gap: 10px;
+            scroll-behavior: smooth;
             .AiImage{
                 width: 300px;
                 min-height: 300px;
@@ -305,6 +306,7 @@ body {
                 border: 2px solid #33333383;
                 background-color: #18222d;
                 color: rgb(173, 173, 173);
+                box-sizing: border-box;
                 border-radius: 10px 10px 10px 0px;
                 margin-right: auto;
                 max-width: 90%;
@@ -514,5 +516,35 @@ body {
 }
 
 strong{
-    color: yellow;
+    color: #4bb749;
+}
+.warning{
+    background-color: rgba(107, 107, 1, 0.884);
+    border: 1px solid rgb(187, 187, 0);
+    color: white;
+    width: 90%;
+    height: 100px;
+    position: absolute;
+    top: -100px;
+    border-radius: 12px;
+    transform: translateX(5%);
+    text-align: center;
+    align-content: center;
+    font-size: larger;
+    font-weight: bolder;
+}
+.warn-anim{
+    animation: 3s warn ease-in-out;
+}
+@keyframes warn {
+    0%{
+        top: -100px;
+    }
+    50%{
+        top: 60px;
+    }
+    100%{
+        top: -100px;
+
+    }
 }

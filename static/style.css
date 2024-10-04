@@ -525,7 +525,7 @@ strong{
     width: 90%;
     height: 100px;
     position: absolute;
-    top: -120px;
+    top: -150px;
     border-radius: 12px;
     transform: translateX(5%);
     text-align: center;
@@ -538,13 +538,13 @@ strong{
 }
 @keyframes warn {
     0%{
-        top: -120px;
+        top: -150px;
     }
     50%{
         top: 60px;
     }
     100%{
-        top: -120px;
+        top: -150px;
 
     }
 }

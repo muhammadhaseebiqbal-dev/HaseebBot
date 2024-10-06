@@ -21,14 +21,10 @@ $(document).ready(function () {
         document.getElementById('session_id').innerHTML = "Session : " + prompt_id_js
  if (Boolean((document.getElementById('dataInput').value).match('@')) === false) {
            document.getElementById('submit').innerHTML = `<i class="fa-solid fa-spinner fa-spin-pulse" style="color: #fff;"></i>`
-           var inputValue = $("#dataInput").val(); 
            var formData = {
                query: $("#dataInput").val(),
-               msgquery: inputValue.match(/\+92\d{10}/),
                SessionId: CurrentSessionId
            };
-           console.log("num:",inputValue.match(/\+92\d{10}/));
-           
            $.getJSON("https://api.ipify.org?format=json",
                function (data) {
                    // Displayin IP address on screen
@@ -52,9 +48,6 @@ $(document).ready(function () {
                encode: true,
            })
                .done(function (response) {
-                if (response.msg == "sent") {
-                     document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
-                }
                    console.log(response.prompt_id);
                    document.getElementById('submit').innerHTML = `<i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>`
                    if (response.promptid == CurrentSessionId) {

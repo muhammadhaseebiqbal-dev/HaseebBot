@@ -152,6 +152,7 @@ def imggeneration():
     if profanity.contains_profanity(query.replace('@ImgAi'," ")):
         return jsonify({"warning":"Ganday Bachey"})
     else:
+        print(query)
         print("Query Received....")
         url = f'https://image.pollinations.ai/prompt/{query}'
         print("Requesting from Server...")

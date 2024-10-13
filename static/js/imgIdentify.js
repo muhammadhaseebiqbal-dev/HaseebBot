@@ -17,9 +17,7 @@ const similar_word = [
     "illustration",
     "illust",
     "abstract art",
-    "make a",
-    "make an",
-    "make it"
+    "make",
 ]
 
 function isImage(query) {

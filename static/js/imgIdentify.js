@@ -16,7 +16,10 @@ const similar_word = [
     "images",
     "illustration",
     "illust",
-    "abstract art"
+    "abstract art",
+    "make a",
+    "make an",
+    "make it"
 ]
 
 function isImage(query) {

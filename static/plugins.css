@@ -1,22 +1,23 @@
 @import url(./fonts.css);
-.weather_plugin{
+@import url(./style.css);
+.g_toggler{
     display: flex;
     align-items: center;
     box-sizing: border-box;
     padding: 0 10px;
     width: 90%;
     height: 20%;
-    background: rgb(255, 255, 255);
+    background: var(--_drawerChildBg);
     gap: 4px;
     font-family: "Poppins";
     font-size: .76rem;
     font-weight: bold;
-    color: rgb(0, 0, 0);
+    color: var(--_drawerChildtxtcolor);
     margin: 10px auto;
     border-radius: 10px;
     justify-content: space-between;
 
-    .weathertogglers{
+    .g_togglers{
         background-color: var(--_drawer_bg);
         width: 30px;
         height: 17px;
@@ -30,7 +31,7 @@
             width: 15px;
             height: 15px;
             transition: .4s;
-            background-color: white;
+            background-color: var(--_drawerChildBg);
         }
         
     }

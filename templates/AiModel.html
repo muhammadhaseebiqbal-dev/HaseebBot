@@ -26,7 +26,7 @@
         <!-- Drawer container :: subparent -->
         <div class="drawer" id="DRAWER">
             <div class="close" id="CLOSE">
-                <i class="fa-regular fa-circle-xmark fa-2xl" style="color: #ffffff; "></i>
+                <i class="fa-regular fa-circle-xmark fa-2xl"></i>
             </div>
             <div class="reloadchats" id="RELOADCHATS">
                 <h3>New Chat</h3>
@@ -42,10 +42,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="weather_plugin" id="weather_plugin">
+                <div class="weather_plugin g_toggler" id="weather_plugin">
                     <i class="fa-solid fa-cloud fa-2xl" style="color: #7cbbd5;"></i>
                     <p>Weather Forecast</p>
-                    <div class="weathertogglers" id="weathertogglers">
+                    <div class="weathertogglers g_togglers" id="weathertogglers">
                         <div class="w-togglerball" id="w-togglerball"></div>
                     </div>
                 </div>
@@ -62,7 +62,12 @@
                     </div>
                     <div class="profileusername">
                         <h3 id="User_ip">0.0.0.0</h3>
-                        <span id="session_id">Session : </span>
+                        <span id="session_id"></span>
+                    </div>
+                    <div class="extras">
+                        <div class="light-dark-mode e-block">
+                            <img width="25" height="25" src="https://img.icons8.com/external-glyph-silhouettes-icons-papa-vector/78/external-Light-Mode-interface-glyph-silhouettes-icons-papa-vector.png" alt="external-Light-Mode-interface-glyph-silhouettes-icons-papa-vector"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,7 +102,7 @@
             <!-- Text area and whole input setup -->
             <footer>
                 <form method="post" id="dataForm">
-                    <textarea name="tarea" id="dataInput" cols="30" rows="2" placeholder="Must type '@ImgAi' to generate images"></textarea>
+                    <textarea name="tarea" id="dataInput" cols="30" rows="2" placeholder=""></textarea>
                     <button type="submit" id="submit">
                         <i class="fa-solid fa-arrow-up fa-xl" style="color: #fff;"></i>
                     </button>
@@ -119,12 +124,16 @@
     <!-- WarningBox --> 
     <div class="warning"></div>
     <!-- All scripts -->
+    <script src="../static/js/light-dark.js"></script>
+    <script src="../static/js/imgIdentify.js"></script>
     <script src="../static/js/scrolling.js"></script>
-    <script src="../static/js/mentioning.js"></script>
+    <script src="../static/js/drawer.js"></script>
+    <script src="../static/js/textarea.js"></script>
+    <script src="../static/js/SamplePrompts.js"></script>
     <script src="../static/js/SessionHandler.js"></script>
     <script src="../static/js/weather.js"></script>
     <script src="../static/js/copytext.js"></script>
-    <script type="module" src="../static/js/plugins-toggler.js"></script>
+    <script src="../static/js/plugins-toggler.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
     <script src="../static/js/script.js"></script>
 </body>

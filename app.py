@@ -95,5 +95,5 @@ def forgetweatherdata():
     current_conv_history.append({"role": "model", "parts": ["I understand. I'll follow your insturtions and fullfill my duty."]})
     return 0;
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9500,debug=True)
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=9500,debug=True)
